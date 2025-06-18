@@ -39,6 +39,22 @@ resource "kubernetes_deployment" "java_app" {
   }
 }
 
+variable "build_number" {}
+
+resource "kubernetes_deployment" "java_app" {
+  # ...
+  spec {
+    template {
+      spec {
+        container {
+          image = "merajansari87/java-demo:${var.build_number}"
+        }
+      }
+    }
+  }
+}
+
+
 resource "kubernetes_service" "java_app" {
   metadata {
     name      = "java-app"
